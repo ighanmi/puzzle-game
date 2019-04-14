@@ -1,0 +1,28 @@
+[draggable] {
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+    /* Required to make elements draggable in old WebKit */
+    -khtml-user-drag: element;
+    -webkit-user-drag: element;
+}
+
+.puzzle__wrapper {
+    display: grid;
+    grid-template-columns: 200px 200px 200px 200px;
+    grid-gap: 1px;
+    color: #444;
+    width: 803px;
+    height: 452px;
+    margin: 40px auto 0 auto;
+}
+
+.puzzle__block {
+    background-size: 800px 450px;
+    cursor: move;
+}
+.puzzle__block.over {
+    outline: 2px dashed #fff;
+    z-index: 10;
+}
