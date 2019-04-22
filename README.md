@@ -17,3 +17,5 @@ Based on ES6 Boilerplate: configured with babel, webpack and eslint.
 https://github.com/metagrover/ES6-boilerplate
 <br>
 https://www.html5rocks.com/en/tutorials/dnd/basics/
+<br>
+https://www.codeproject.com/Articles/1091766/Add-support-for-standard-HTML-Drag-and-Drop-operat
