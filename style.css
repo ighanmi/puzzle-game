@@ -8,21 +8,41 @@
     -webkit-user-drag: element;
 }
 
+.app {
+    width: 100%;
+    padding: 10px 10px 0 10px;
+    box-sizing: border-box;
+    margin: 0 auto;
+}
 .puzzle__wrapper {
     display: grid;
     grid-template-columns: 200px 200px 200px 200px;
     grid-gap: 1px;
     color: #444;
-    width: 803px;
-    height: 452px;
-    margin: 40px auto 0 auto;
+    margin: 0 auto;
+    width: 100%;
 }
 
 .puzzle__block {
-    background-size: 800px 450px;
     cursor: move;
 }
 .puzzle__block.over {
     outline: 2px dashed #fff;
     z-index: 10;
+}
+
+.puzzle__image {
+    position: absolute;
+    left: -2000000px;
+    top: -2000000px;
+}
+
+@media (min-width: 1200px) {
+    .app {
+        padding: 40px 0 0 0 ;
+        width: 800px;
+    }
+    .puzzle__wrapper {
+        padding: 0;
+    }
 }

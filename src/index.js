@@ -1,3 +1,7 @@
+// Add support for standard HTML5 Drag and Drop operations on Mobile Devices
+// Src: https://www.codeproject.com/Articles/1091766/Add-support-for-standard-HTML-Drag-and-Drop-operat
+import './lib/dragDropTouch';
+import {appendStyle} from './common';
 class Puzzle {
     constructor(puzzleWrapper, puzzleImage, blockWidth, blockHeight) {
         this.puzzleWrapper = puzzleWrapper;
@@ -111,10 +115,39 @@ class Puzzle {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    let puzzle = new Puzzle(document.querySelector('#puzzle__wrapper'),
-        'https://s3-eu-west-1.amazonaws.com/wagawin-ad-platform/media/testmode/banner-landscape.jpg',
-        200,
-        150
-    );
-    puzzle.init();
+    const puzzleImageUrl = 'https://s3-eu-west-1.amazonaws.com/wagawin-ad-platform/media/testmode/banner-landscape.jpg';
+    const puzzleImage = document.getElementById('puzzle__image');
+    const puzzleWrapper = document.querySelector('#puzzle__wrapper');
+    // We load the puzzle image in a 'non visible' image tag
+    // and then we get its width and height (needed to calculate the dimensions ratio)
+    const newImg = new Image;
+    newImg.onload = function() {
+        puzzleImage.src = this.src;
+        const puzzleImageWidth = puzzleImage.clientWidth;
+        const puzzleImageHeight = puzzleImage.clientHeight;
+        const imageRatio = puzzleImageWidth/puzzleImageHeight;
+        const puzzleWrapperWidth = puzzleWrapper.clientWidth;
+        const puzzleWrapperHeight = puzzleWrapperWidth / imageRatio;
+        const blockWidth = (puzzleWrapperWidth - 3) / 4;
+        const blockHeight = (puzzleWrapperHeight - 2) / 3;
+        // Set the puzzle block dimensions
+        const css = `
+            .puzzle__wrapper {
+                height: ${puzzleWrapperHeight}px;
+                grid-template-columns: ${blockWidth}px ${blockWidth}px ${blockWidth}px ${blockWidth}px;
+            }
+            
+            .puzzle__block {
+                background-size: ${puzzleWrapperWidth}px ${puzzleWrapperHeight}px;
+            }
+        `;
+        appendStyle(css);
+        const puzzle = new Puzzle(puzzleWrapper,
+            puzzleImageUrl,
+            blockWidth,
+            blockHeight
+        );
+        puzzle.init();
+    };
+    newImg.src = puzzleImageUrl;
 });
